@@ -3,9 +3,8 @@ const app = express();
 const imagens_route = require("./routes/imagens")
 const morgan = require("morgan")
 
-
 app.use(morgan("dev"))
-app.use(express.urlencoded({ extends: false))
+app.use(express.urlencoded({ extends: false}))
 app.use(express.json())
 
 app.use((req, res, next) => {
@@ -22,7 +21,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use("/imagens",imagens_route);
+app.use("/imagens", imagens_route);
 
 app.use((req, res, next)=>{
 	const error = new Error("Não encontrado")
