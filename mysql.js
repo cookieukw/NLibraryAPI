@@ -5,7 +5,7 @@ let pool = sql.createPool({
 "password":process.env.MYSQL_PASSWORD || "root",
 "database":process.env.MYSQL_DATABASE || "sla",
 "host":process.env.MYSQL_HOST || "localhost",
-"port": process.env.MYSQL_PORT || 3306
+"port": process.env.MYSQL_DB_PORT || 3306
 });
 
 exports.pool = pool;
