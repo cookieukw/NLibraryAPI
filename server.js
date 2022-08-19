@@ -9,8 +9,7 @@ const username = process.env.mongo_username
 const password = process.env.mongo_password
 const url = process.env.mongo_url
 const auth = `mongodb+srv://${username}:${password}${url}`
-const port = process.env.port
-console.log(auth)
+const port = process.env.PORT
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extends: true }));
@@ -49,7 +48,7 @@ app.use((error, req, res, next) => {
 mongoose.connect(auth)
 .then(()=>{
 	console.log("certissimo")
-	app.listen(port, "0.0.0.0")
+	app.listen(port)
 	})
 .catch((err)=>{
 	console.log(err)
