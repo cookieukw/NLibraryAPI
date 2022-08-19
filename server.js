@@ -4,12 +4,10 @@ const app = express();
 const imagens_route = require("./routes/imagens");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const username = process.env.mongo_username || "cookieukw"
-const password = process.env.mongo_password || encodeURIComponent("72A7wpGU8lBcEyoF")
-console.log('username '+username)
-console.log('pass '+password)
-
-const uri = `mongodb+srv://${username}:${password}@cookiedb.beyogzf.mongodb.net/?retryWrites=true&w=majority`
+const username = process.env.mongo_username
+const password = process.env.mongo_password
+const url = process.env.mongo_url
+const auth = `mongodb+srv://${username}:${password}${url}`
 console.log(uri)
 const port = process.env.port || 3000
 app.use(morgan("dev"));
@@ -46,7 +44,7 @@ app.use((error, req, res, next) => {
   });
 });
 
-mongoose.connect(uri)
+mongoose.connect(auth)
 .then(()=>{
 	console.log("certissimo")
 	app.listen(port)
