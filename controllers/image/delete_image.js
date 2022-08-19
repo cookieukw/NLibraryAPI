@@ -1,40 +1,27 @@
-const mysql = require("../../mysql").pool;
+const imgModel = require("../../models/ImgModel")
 
-exports.deleteImage = (req, res, next) => {
-  if (req.body.image_id == null)
-    return res.status(500).send({ erro: `Missing param image_id` });
-
-  mysql.getConnection((error, conn) => {
-    if (error) return res.status(500).send({ error: error });
-
-    conn.query(
-      "SELECT * FROM `imagens` WHERE image_id=?",
-      [req.body.image_id],
-      (erro, result, field) => {
-        if (erro) {
-          conn.release();
-          return res.status(500).send({ error: erro });
-        }
-        if (result.length == 0) {
-          conn.release();
-          return res.status(500).send({ error: "Null object!" });
-        }
-        conn.query(
-          "DELETE FROM `imagens` WHERE image_id=?",
-          [req.body.image_id],
-          (erro, result, field) => {
-            conn.release();
-            if (erro) return res.status(500).send({ error: erro });
-
-            res.status(202).send({
-              response: {
-                mensagem: "Deleted sucess!",
-              },
-            });
-          }
-        );
-      }
-    );
+exports.deleteImage = async (req, res) => {
+  const image_id  = req.params.image_id
+try {
+  
+  const anImage = await imgModel.findOne({
+    _id: image_id
   })
+
+  if(!anImage) return res.status(422).json({ error: "Image not found. >:(" });
+  
+  const deletedImage = await imgModel.deleteOne({ _id: image_id })
+  if(!deletedImage.deletedCount){
+    return res.status(204).send({ erro: `There are 0 parameters` });
+  } 
+  if(deletedImage.deletedCount === 0){
+    return res.status(422).send({ erro: `No changes made ._.` });
+  } 
+  res.status(200).json({ message: "Image successfully deleted!" })
+} catch (error) {
+  res.status(500).json({ error: "An error has occurred :(" });
+
+}
+ 
 }
   

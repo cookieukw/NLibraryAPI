@@ -5,15 +5,15 @@
   "main": "server.js",
   "dependencies": {
     "express": "^4.18.1",
+    "mongoose": "^6.5.2",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
-    "nodemon": "^2.0.19",
-    "uuid": "^8.3.2"
+    "nodemon": "^2.0.19"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",

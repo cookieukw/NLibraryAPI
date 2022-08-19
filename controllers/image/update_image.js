@@ -1,28 +1,40 @@
-const mysql = require("../../mysql").pool;
+const imgModel = require("../../models/ImgModel")
 
-exports.updateImage = (req, res, next) => {
-  if (req.body.image_url == null)
-    return res.status(500).send({ erro: `Missing param image_url` });
-  if (req.body.image_category == null)
-    return res.status(500).send({ erro: `Missing param image_category` });
-  if (req.body.image_id == null)
-    return res.status(500).send({ erro: `Missing param image_id` });
 
-  mysql.getConnection((error, conn) => {
-    if (error) return res.status(500).send({ error: error });
-    conn.query(
-      `UPDATE imagens SET image_url = ?, image_category = ? WHERE image_id = ?`,
-      [req.body.image_url, req.body.image_category, req.body.image_id],
-      (erro, result, field) => {
-        conn.release();
-        if (erro) return res.status(500).send({ error: erro });
+exports.updateImage = async (req, res) => {
+  const { image_url, image_category } = req.body
+ 
+  // if (req.body) return res.status(422).send({ erro: `There are 0 parameters` });
+  
+  const id = req.params.image_id
+  const patchData = {
+    image_category: image_category,
+    image_url: image_url
+  }
 
-        res.status(202).send({
-          response: {
-            mensagem: "Updated sucess!",
-          },
-        });
-      }
-    );
-  });
+  try {
+    const updatedImage = await imgModel.updateOne({
+      _id: id
+    }, patchData)
+
+    if(!updatedImage.matchedCount){
+      return res.status(204).send({ erro: `There are 0 parameters` });
+    } 
+  
+    if(updatedImage.matchedCount == 0){
+      return res.status(422).send({ erro: `No changes made ._.` });
+    } 
+  
+    const anImage = await imgModel.findOne({
+      _id: id
+    })
+    
+    if(!anImage) return res.status(422).json({ error: "User not found. >:(" });
+
+    res.status(200).json({ message: "Image successfully changed!" })
+  } catch (error) {
+    res.status(500).json({ error: "An error has occurred :(" });
+  }
+  
+ 
 }

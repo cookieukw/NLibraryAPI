@@ -1,30 +1,23 @@
-const mysql = require("../../mysql").pool;
-const { v4: uuidv4 } = require("uuid");
+const imgModel = require("../../models/ImgModel")
 
-exports.postImage = (req, res) => {
-  if (req.body.image_url == null)
-    return res.status(500).send({ erro: `Missing param image_url` });
-  if (req.body.image_category == null)
-    return res.status(500).send({ erro: `Missing param image_category` });
+exports.postImage = async (req, res) => {
+  const { image_url, image_category } = req.body
 
-  mysql.getConnection((error, conn) => {
-    if (error) return res.status(500).send({ error: error });
-
-    conn.query(
-      `INSERT INTO imagens (image_id, image_url, image_category) VALUES(?, ?, ?)`,
-      [uuidv4(), req.body.image_url, req.body.image_category],
-      (erro, result, field) => {
-        conn.release();
-        if (erro) return res.status(502).send({ error: erro });
-        console.log(result);
-//*
-        res.status(200).send({
-          response: {
-            mensagem: "Send sucess!",
-            id: result.insertId,
-          }
-        });//*
-      });
-  });
+  if (!image_url) return res.status(422).send({ erro: `Missing param image_url` });
+  if (!image_category) return res.status(422).send({ erro: `Missing param image_category` });
+    
+    const postData = {
+      image_category: image_category,
+      image_url: image_url
+    }
+    
+    try {
+     
+      await imgModel.create(postData)
+    res.status(201).json({ message: 'Image created successfully!' });
+    } catch (error) {
+    res.status(500).json({ error: "An error has occurred :(" });
+    
+  }
 }
   
