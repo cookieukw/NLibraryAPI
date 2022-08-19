@@ -9,7 +9,7 @@ const username = process.env.mongo_username
 const password = process.env.mongo_password
 const url = process.env.mongo_url
 const auth = `mongodb+srv://${username}:${password}${url}`
-const port = process.env.mongo_port
+const port = process.env.port
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extends: true }));
