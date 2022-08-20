@@ -5,6 +5,7 @@ exports.getDB = async(req, res)=>{
         page: parseInt(req.query.page, 10) || 0,
         limit: parseInt(req.query.limit, 10) || 10
     }
+  
  if(pageOptions.limit >= 21) return res.status(416).json({ message: "The maximum size of items is 20"});
 try {
      const allData = await imgModel.find()

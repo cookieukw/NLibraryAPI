@@ -5,6 +5,4 @@ const ImgModel = mongoose.model("image",{
   image_url: String
 })
 
-ImgModel.createIndexes()
-
 module.exports = ImgModel;
