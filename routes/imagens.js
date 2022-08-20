@@ -4,7 +4,7 @@ const rot = express.Router();
  const { postImage } = require("../controllers/image/post_image")
  const { updateImage } = require("../controllers/image/update_image")
  const { deleteImage } = require("../controllers/image/delete_image")
- const { getAnImage } =require("../controllers/image/get_an_image")
+ const { getAnImage } = require("../controllers/image/get_an_image")
 
  rot.get("/", getDB);
  rot.post("/", postImage);

@@ -2,6 +2,7 @@ const http = require("http");
 const express = require("express");
 const app = express();
 const imagens_route = require("./routes/imagens");
+const getAllCategory = require("./routes/category");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 require("dotenv").config();
@@ -30,6 +31,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/pics", imagens_route);
+app.use("/category", getAllCategory);
 
 app.use((req, res, next) => {
   const error = new Error("Não encontrado");
