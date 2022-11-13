@@ -1,16 +1,15 @@
 {
-  "name": "n-library-api",
+  "name": "nlibraryapi",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "mongoose": "^6.5.2",
-    "morgan": "^1.10.0",
-    "mysql": "^2.18.1",
-    "nodemon": "^2.0.19"
-  },
+  "dotenv": "^16.0.1",
+  "express": "^4.18.1", 
+  "mongoose": "^6.5.2",
+  "morgan": "^1.10.0", 
+  "mysql": "^2.18.1", 
+  "nodemon": "^2.0.19" }, 
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js"
@@ -19,8 +18,7 @@
     "type": "git",
     "url": "git+https://github.com/cookieukw/NLibraryAPI.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Cookieukw",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/cookieukw/NLibraryAPI/issues"

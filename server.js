@@ -6,11 +6,11 @@ const getAllCategory = require("./routes/category");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const username = process.env.mongo_username
-const password = process.env.mongo_password
-const url = process.env.mongo_url
+const username = process.env.MONGO_USERNAME
+const password = process.env.MONGO_PASSWORD
+const url = process.env.MONGO_URL
 const auth = `mongodb+srv://${username}:${password}${url}`
-const port = process.env.PORT
+const port = 3000
 
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extends: true }));
