@@ -6,14 +6,14 @@ const getAllCategory = require("./routes/category");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
 require("dotenv").config();
-const username = process.env.MONGO_USERNAME
-const password = process.env.MONGO_PASSWORD
-const url = process.env.MONGO_URL
-const auth = `mongodb+srv://${username}:${password}${url}`
-const port = process.env.PORT ? process.env.PORT : 3000
+const username = process.env.MONGO_USERNAME;
+const password = process.env.MONGO_PASSWORD;
+const url = process.env.MONGO_URL;
+const auth = `mongodb+srv://${username}:${password}${url}`;
+const port = process.env.PORT ? process.env.PORT : 3000;
 
 app.use(morgan("dev"));
-app.use(express.urlencoded({ extends: true }));
+//app.use(express.urlencoded({ extends: true }));
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -47,11 +47,12 @@ app.use((error, req, res, next) => {
   });
 });
 
-mongoose.connect(auth)
-.then(()=>{
-	console.log("certissimo")
-	app.listen(port)
-	})
-.catch((err)=>{
-	console.log(err)
-})
+mongoose
+  .connect(auth)
+  .then(() => {
+    console.log("listening");
+    app.listen(port);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
