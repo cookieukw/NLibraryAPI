@@ -5,7 +5,7 @@ const imagens_route = require("./routes/imagens");
 const getAllCategory = require("./routes/category");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-//require("dotenv").config();
+require("dotenv").config();
 const username = process.env.MONGO_USERNAME;
 const password = process.env.MONGO_PASSWORD;
 const url = process.env.MONGO_URL;
@@ -50,7 +50,7 @@ mongoose
   .connect(auth)
   .then(() => {
     console.log(`listening on ${port}`);
-    app.listen(port);
+    app.listen(3000);
   })
   .catch((err) => {
     console.log(err);
