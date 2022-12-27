@@ -5,7 +5,7 @@ const imagens_route = require("./routes/imagens");
 const getAllCategory = require("./routes/category");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-require("dotenv").config();
+//require("dotenv").config();
 const username = process.env.MONGO_USERNAME;
 const password = process.env.MONGO_PASSWORD;
 const url = process.env.MONGO_URL;
@@ -35,7 +35,6 @@ app.use("/category", getAllCategory);
 
 app.use((req, res, next) => {
   const error = new Error("Não encontrado");
-
   error.status = 404;
   next(error);
 });
@@ -50,7 +49,7 @@ app.use((error, req, res, next) => {
 mongoose
   .connect(auth)
   .then(() => {
-    console.log("listening");
+    console.log(`listening on ${port}`);
     app.listen(port);
   })
   .catch((err) => {
